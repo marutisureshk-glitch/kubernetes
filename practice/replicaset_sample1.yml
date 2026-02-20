@@ -1,0 +1,26 @@
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-rs
+  labels:
+    app: nginx-app
+    author: maruti
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-nginx
+  template:
+    metadata:
+      name: nginx-pod
+      labels:
+        app: my-nginx
+    spec:
+      containers:
+          - name: nginx-app
+            image: nginx
+            ports:
+              - containerPort: 80
+                hostPort: 8085
+...

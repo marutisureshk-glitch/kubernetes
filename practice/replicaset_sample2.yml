@@ -1,0 +1,26 @@
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: wordpress-rs
+  labels:
+    app: wordpress
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: wordpress-app
+  template:
+    metadata:
+      name: wordpress-pod
+      labels:
+        app: wordpress-app
+    spec:
+      containers:
+        - name: wordpress-container
+          image: wordpress
+          ports:
+           - containerPort: 80
+             hostPort: 8086
+...
+

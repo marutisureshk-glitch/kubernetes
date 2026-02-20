@@ -1,0 +1,27 @@
+---
+apiVersion: apps/v1
+kind: ReplicaSet     # 1st object
+metadata:
+  name: jenkins-rs-with-namespace
+  namespace: test-ns # 2nd object
+  labels:
+      app: jenkins_jenkins
+      author: maruti
+spec:
+  replicas: 2
+  selector: # 3rd object
+    matchLabels:
+      app: jenkins-app
+  template:
+    metadata:
+      name: jenkins-pod
+      labels:
+        app: jenkins-app
+    spec:
+      containers:
+        - name: jenkins-container
+          image: jenkins/jenkins
+          ports:
+           - containerPort: 8080
+             hostPort: 8087
+...
